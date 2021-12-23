@@ -638,8 +638,6 @@ doc["rocflag"].bind("click", rocflag.do)
 ################################## rocflag end
 </script>
 </p><h1>HW3</h1>
-<h1>Bsnake</h1>
-<p><a href="/downloads/w12.txt">w12.txt</a></p>
 <p></p>
 <p>HW3 - AI 貪食蛇佔學期成績 30%.</p>
 <p><span style="background-color: #ffff99;">HW3 必須在 2021.12.22 22:00 之前完成.</span></p>
@@ -647,10 +645,99 @@ doc["rocflag"].bind("click", rocflag.do)
 <p>網際貪食蛇的逆襲, 誰的<a href="https://mde.tw/cp2021/content/run.html?src=https://gist.githubusercontent.com/mdecourse/d306a1f57e53bfd6466eaae20bcb9439/raw/2160a12b9fec9707a120a383ed5d38b9b78a02cf/snake.py">自動執行貪食蛇</a>能夠破紀錄? 目前直覺貪食蛇紀錄為 45 節 (除了蛇身節數外, 應該還要置入出現紅色標的物後的總完食時間).</p>
 <p><a href="https://mde.tw/cp2021/content/run.html?src=https://gist.githubusercontent.com/mdecourse/d306a1f57e53bfd6466eaae20bcb9439/raw/f188098281ecaeedeea484c074ab34a05c3086eb/manual_snake.py">手動執行貪食蛇</a>程式說明與整理.</p>
 <p><a href="https://mde.tw/cp2021/content/run.html?src=https://gist.githubusercontent.com/mdecourse/d306a1f57e53bfd6466eaae20bcb9439/raw/2160a12b9fec9707a120a383ed5d38b9b78a02cf/snake.py">自動執行貪食蛇</a>程式說明與整理.</p>
-<p><a href="https://mde.tw/cp2021/content/run.html?src=https://gist.githubusercontent.com/mdecourse/d306a1f57e53bfd6466eaae20bcb9439/raw/2160a12b9fec9707a120a383ed5d38b9b78a02cf/snake.py">自動執行貪食蛇</a>程式的改進.</p>
-<p>---------------------------------------------------------------------------------------------------------</p>
-<p># 從 browser 導入 document 並設為 doc<br/>from browser import document as doc<br/>from browser import html, window<br/>import browser.timer<br/>import math<br/>from random import random, randint<br/><br/>def update_score(new_score):<br/>    global high_score<br/>    score_doc.innerHTML = "Score: " + str(new_score)<br/>    if new_score &gt; high_score:<br/>        high_score_doc.innerHTML = "High Score: " + str(new_score)<br/>        high_score = new_score<br/><br/>def key_push(evt):<br/>    #evt為一個自設的數<br/>    global xv, yv, pre_pause, paused<br/>    #由global宣告<br/>    key = evt.keyCode<br/>    # 37 is left arrow key<br/>    # 74 is j key<br/>    if key == 74 and not paused:<br/>        xv = -1<br/>        yv = 0<br/>    # 38 is up arrow key<br/>    # 73 is i key<br/>    elif key == 73 and not paused:<br/>        xv = 0<br/>        yv = -1<br/>    # 39 is right arrow key<br/>    # 76 is l key<br/>    elif key == 76 and not paused:<br/>        xv = 1<br/>        yv = 0<br/>    # 40 is down arrow key<br/>    # 77 is m key<br/>    elif key == 77 and not paused:<br/>        xv = 0<br/>        yv = 1<br/>    # 32 is pause key<br/>    # 80 is p key<br/>    elif key == 80:<br/>        temp = [xv, yv]<br/>        xv = pre_pause[0]<br/>        yv = pre_pause[1]<br/>        pre_pause = [*temp]<br/>        paused = not paused<br/>  <br/>def show_instructions(evt):<br/>        window.alert("keys to control: i=up, m=down, j=left, l=right, p=pause")<br/><br/># 利用 html 建立 canvas 超文件物件<br/>canvas = html.CANVAS(width = 400, height = 400)<br/>canvas.id = "game-board"<br/>brython_div = doc["brython_div"]<br/>brython_div &lt;= canvas<br/>   <br/>score_doc = html.DIV("score")<br/>score_doc.id = "score"<br/>brython_div &lt;= score_doc<br/>   <br/>high_score_doc = html.DIV("high-score")<br/>high_score_doc.id = "high-score"<br/>brython_div &lt;= high_score_doc<br/>   <br/>button = html.BUTTON("Keys to control")<br/>button.id = "instructions-btn"<br/>brython_div &lt;= button<br/><br/># 建立 buttons<br/>brython_div &lt;= html.BUTTON("啟動", id="power")<br/>   <br/>score = 0<br/>high_score = 0<br/><br/># gs*tc = canvas width and height<br/># 每一格的 pixel 數<br/>gs = 20<br/># 長寬各有 20 格<br/>tc = 20<br/>pre_pause = [0,0]<br/>paused = False<br/><br/>ctx = canvas.getContext("2d")<br/>doc.addEventListener("keydown", key_push)<br/>instructions_btn = doc["instructions-btn"]<br/>instructions_btn.addEventListener("click", show_instructions)<br/><br/>def dRect(lux, luy, w, h, s=1, c='#ff0000'):<br/>    ctx.lineWidth = s<br/>    ctx.strokeStyle = c<br/>    ctx.beginPath();<br/>    ctx.rect(lux, luy, w, h)<br/>    ctx.stroke();<br/>    <br/>def grid():<br/>    # gs, HEIGHT, WIDTH<br/>    # 利用迴圈與座標增量繪圖<br/>    for i in range(WIDTH):<br/>        for j in range(HEIGHT):<br/>            dRect(i*gs, j*gs, gs, gs, 1, "lightgrey")<br/>    <br/># 貪食蛇運動的場地長寬<br/>HEIGHT = 50<br/>WIDTH = 50<br/>FIELD_SIZE = HEIGHT * WIDTH<br/><br/>HEAD = 5<br/><br/># 用來代表不同意義的數字，由於矩陣上每個格子會處理成到達食物的路徑長度，<br/># 因此這三個變數間需要有足夠大的間隔(&gt;HEIGHT*WIDTH)<br/># 以整數 0 代表 FOOD, 意即若 board 數列中某一元素<br/># 將隨機取得座標後將該數列索引值設為 0 就表示該格子為 FOOD<br/># UNDEFINED 值之所以必須大於 HEIGHT*WIDTH, 因為該值將在 BFS 後<br/># 表示蛇頭距離 FOOD 的路徑步數, 而最大距離步數將會是 HEIGHT*WIDTH<br/># SNAKE 以整數代表, 由於必須有別於 UNDEFINED 與 FOOD 的值, 因此選擇<br/># 以 2 * UNDEFINED 這個數字代表該格子被 snake 身體佔住<br/>FOOD = 0<br/>UNDEFINED = (HEIGHT + 1) * (WIDTH + 1)<br/>SNAKE = 2 * UNDEFINED<br/><br/># 由於 snake 是一維數列，所以對應元素直接加上以下數值就表示向四個方向移動<br/># 應該是說, 原本該以二維座標表示 board 中各格子的座標, 但在此選擇以一維<br/># 數列的資料結構來代表二維座標, (1, 1) 可表示為 1*WIDTH+1, <br/># (x, y) 則表示為 x*WIDTH+y<br/># 因此往上或往下的移動, 就一維數列值而言, 必須減或加上 WIDTH<br/>LEFT = -1<br/>RIGHT = 1<br/>UP = -WIDTH<br/>DOWN = WIDTH<br/><br/># 錯誤碼<br/>ERR = -1111<br/><br/># 用一維數列來表示二維的座標, 使用此資料結構的原因是:<br/># 貪食蛇每行進一步, 只需要配合蛇頭移動位置新增一個方格座標,  <br/># 且更改蛇尾對應值 (即從原先的蛇身因行進移動一步而變更設定)<br/># 且讓 snake[HEAD] = x*WIDTH+y, 假設蛇長 snake_size=n<br/># 則蛇尾 snake[HEAD+n-1] 假設位於 xn*WIDTH+yn<br/># board[x*WIDTH+y]=SNAKE=2 * UNDEFINED<br/># board[xn*WIDTH+yn] 表示為蛇尾, 蛇頭走一步後, 蛇尾從 2 * UNDEFINED <br/># 轉為空白可在搜尋流程中加上距離食物的總步數<br/># board 表示蛇運動的矩形場地<br/># 初始化蛇頭在(1,1)的地方，第0行，HEIGHT行，第0列，WIDTH列為圍牆，不可用<br/># 初始蛇長度為1<br/># board 與 snake 均為總元素為格點數大小的一維數列<br/>board = [0] * FIELD_SIZE<br/>#snake = [0] * (FIELD_SIZE+1)<br/># 原程式加 1<br/>snake = [0] * (FIELD_SIZE)<br/># 座標 (1, 1) 在一維數列中, 表示為 1*WIDTH+1<br/>snake[HEAD] = 1*WIDTH+1<br/>snake_size = 1<br/># 與上面變量對應的臨時變量，蛇試探性地移動時使用<br/>tmpboard = [0] * FIELD_SIZE<br/>#tmpsnake = [0] * (FIELD_SIZE+1)<br/># 原程式加 1<br/>tmpsnake = [0] * (FIELD_SIZE)<br/>tmpsnake[HEAD] = 1*WIDTH+1<br/>tmpsnake_size = 1<br/><br/># food:食物位置(0~FIELD_SIZE-1),初始在(3, 3)<br/># best_move: 運動方向<br/>food = 3 * WIDTH + 3<br/>best_move = ERR<br/><br/># 運動方向數組<br/>mov = [LEFT, RIGHT, UP, DOWN]<br/># 接收到的鍵和分數<br/>#key = KEY_RIGHT  <br/># 初始蛇為一節<br/>score = 1 #分數也表示蛇長<br/><br/># 檢查一個 cell 有沒有被蛇身覆蓋，沒有覆蓋則為 free，返回 true<br/>def is_cell_free(idx, psize, psnake):<br/>    return not (idx in psnake[:psize]) <br/><br/># 檢查某個位置idx是否可向move方向運動<br/># idx = x*WIDTH + y<br/>def is_move_possible(idx, move):<br/>    flag = False<br/>    # LEFT = -1<br/>    if move == LEFT:<br/>        # idx%WIDTH is the column order number need to be &gt; 1<br/>        # if y &gt; 1, snake can move LEFT to -1<br/>        flag = True if idx%WIDTH &gt; 1 else False<br/>    # RIGHT = 1<br/>    elif move == RIGHT:<br/>        # to move RIGHT, column order number need to be &lt; WIDTH-2<br/>        flag = True if idx%WIDTH &lt; (WIDTH-2) else False<br/>    # UP = -WIDTH<br/>    elif move == UP:<br/>        # to move UP row order number need to be &gt; 1<br/>        flag = True if idx &gt; (2*WIDTH-1) else False # 即idx/WIDTH &gt; 1<br/>    # DOWN = WIDTH<br/>    # FIELD_SIZE = WIDTH* HEIGHT<br/>    elif move == DOWN:<br/>        # to move DOWN row order number need to be &lt; HEIGHT-2<br/>        flag = True if idx &lt; (FIELD_SIZE-2*WIDTH) else False # 即idx//WIDTH &lt; HEIGHT-2<br/>    return flag<br/><br/># 重置 board<br/># board_refresh 後，UNDEFINED 值都變為了到達食物的路徑長度<br/># 如需要還原，則要重置它<br/>def board_reset(psnake, psize, pboard):<br/>    # 查驗所有格點內容<br/>    for i in range(FIELD_SIZE):<br/>        if i == food:<br/>            pboard[i] = FOOD<br/>        elif is_cell_free(i, psize, psnake): # 該位置為空<br/>            pboard[i] = UNDEFINED<br/>        else: # 該位置為蛇身<br/>            pboard[i] = SNAKE<br/>    <br/># 廣度優先搜索遍歷整個 board，<br/># 計算出 board 中每個非 SNAKE 元素到達食物的路徑長度<br/>def board_refresh(pfood, psnake, pboard):<br/>    queue = []<br/>    queue.append(pfood)<br/>    inqueue = [0] * FIELD_SIZE<br/>    found = False<br/>    # while 循環結束後，除了蛇的身體，<br/>    # 其它每個方格中的數字代碼從它到食物的路徑長度<br/>    while len(queue)!=0: <br/>        idx = queue.pop(0)<br/>        if inqueue[idx] == 1: continue<br/>        inqueue[idx] = 1<br/>        for i in range(4):<br/>            if is_move_possible(idx, mov[i]):<br/>                if idx + mov[i] == psnake[HEAD]:<br/>                    found = True<br/>                if pboard[idx+mov[i]] &lt; SNAKE: # 如果該點不是蛇的身體<br/>                    <br/>                    if pboard[idx+mov[i]] &gt; pboard[idx]+1:<br/>                        pboard[idx+mov[i]] = pboard[idx] + 1<br/>                    if inqueue[idx+mov[i]] == 0:<br/>                        queue.append(idx+mov[i])<br/><br/>    return found<br/><br/># 從蛇頭開始，根據 board 中元素值，<br/># 從蛇頭周圍 4 個領域點中選擇最短路徑<br/>def choose_shortest_safe_move(psnake, pboard):<br/>    best_move = ERR<br/>    min = SNAKE<br/>    for i in range(4):<br/>        if is_move_possible(psnake[HEAD], mov[i]) and pboard[psnake[HEAD]+mov[i]]&lt;min:<br/>            min = pboard[psnake[HEAD]+mov[i]]<br/>            best_move = mov[i]<br/>    return best_move<br/><br/># 從蛇頭開始，根據board中元素值，<br/># 從蛇頭周圍 4 個領域點中選擇最遠路徑<br/>def choose_longest_safe_move(psnake, pboard):<br/>    best_move = ERR<br/>    max = -1<br/>    for i in range(4):<br/>        if is_move_possible(psnake[HEAD], mov[i]) and pboard[psnake[HEAD]+mov[i]]&lt;UNDEFINED and pboard[psnake[HEAD]+mov[i]]&gt;max:<br/>            max = pboard[psnake[HEAD]+mov[i]]<br/>            best_move = mov[i]<br/>    return best_move<br/><br/># 檢查是否可以追著蛇尾運動, 即蛇頭和蛇尾間是有路徑的<br/># 為的是避免蛇頭陷入死路<br/># 虛擬操作, 在 tmpboard,tmpsnake 中進行<br/>def is_tail_inside():<br/>    global tmpboard, tmpsnake, food, tmpsnake_size<br/>    tmpboard[tmpsnake[tmpsnake_size-1]] = 0 # 虛擬地將蛇尾變為食物(因為是虛擬的，所以在tmpsnake,tmpboard中進行)<br/>    tmpboard[food] = SNAKE # 放置食物的地方，看成蛇身<br/>    result = board_refresh(tmpsnake[tmpsnake_size-1], tmpsnake, tmpboard) # 求得每個位置到蛇尾的路徑長度<br/>    for i in range(4): # 如果蛇頭和蛇尾緊挨著，則返回 False。即不能 follow_tail，追著蛇尾運動了<br/>        if is_move_possible(tmpsnake[HEAD], mov[i]) and tmpsnake[HEAD]+mov[i]==tmpsnake[tmpsnake_size-1] and tmpsnake_size&gt;3:<br/>            result = False<br/>    return result<br/><br/># 讓蛇頭朝著蛇尾運行一步<br/># 不管蛇身阻擋，朝蛇尾方向運行<br/>def follow_tail():<br/>    global tmpboard, tmpsnake, food, tmpsnake_size<br/>    tmpsnake_size = snake_size<br/>    tmpsnake = snake[:]<br/>    board_reset(tmpsnake, tmpsnake_size, tmpboard) # 重置虛擬board<br/>    tmpboard[tmpsnake[tmpsnake_size-1]] = FOOD # 讓蛇尾成為食物<br/>    tmpboard[food] = SNAKE # 讓食物的地方變成蛇身<br/>    board_refresh(tmpsnake[tmpsnake_size-1], tmpsnake, tmpboard) # 求得各個位置到達蛇尾的路徑長度<br/>    tmpboard[tmpsnake[tmpsnake_size-1]] = SNAKE # 還原蛇尾<br/><br/>    return choose_longest_safe_move(tmpsnake, tmpboard) # 返回運行方向(讓蛇頭運動 1 步)<br/><br/># 在各種方案都不行時，隨便找一個可行的方向來走(1 步),<br/>def any_possible_move():<br/>    global food , snake, snake_size, board<br/>    best_move = ERR<br/>    board_reset(snake, snake_size, board)<br/>    board_refresh(food, snake, board)<br/>    min = SNAKE<br/><br/>    for i in range(4):<br/>        if is_move_possible(snake[HEAD], mov[i]) and board[snake[HEAD]+mov[i]]&lt;min:<br/>            min = board[snake[HEAD]+mov[i]]<br/>            best_move = mov[i]<br/>    return best_move<br/><br/>def shift_array(arr, size):<br/>    for i in range(size, 0, -1):<br/>        arr[i] = arr[i-1]<br/><br/>def new_food():<br/>    global food, snake_size<br/>    cell_free = False<br/>    while not cell_free:<br/>        w = randint(1, WIDTH-2)<br/>        h = randint(1, HEIGHT-2)<br/>        # food coordinate<br/>        food = h * WIDTH + w<br/>        cell_free = is_cell_free(food, snake_size, snake)<br/>    #win.addch(food//WIDTH, food%WIDTH, '@')<br/>    # 畫出 food<br/>    ctx.fillStyle = "red"<br/>    ctx.fillRect((food//WIDTH)*gs, (food%WIDTH)*gs, gs-2, gs-2)<br/>    <br/>    # 真正的蛇在這個函數中, 朝 pbest_move 走 1 步<br/>def make_move(pbest_move):<br/>    global key, snake, board, snake_size, score<br/>    shift_array(snake, snake_size)<br/>    snake[HEAD] += pbest_move<br/>    <br/><br/>    # 按 esc 退出，getch 同時保證繪圖的流暢性, 沒有它只會看到最終結果<br/>    #win.timeout(10)<br/>    #event = win.getch()<br/>    #key = key if event == -1 else event<br/>    #if key == 27: return<br/><br/>    p = snake[HEAD]<br/>    #win.addch(p//WIDTH, p%WIDTH, '*')<br/>    # 畫出 snake head<br/>    ctx.fillStyle = "black"<br/>    ctx.fillRect((p//WIDTH)*gs, (p%WIDTH)*gs, gs-2, gs-2)<br/>    <br/>        # 如果新加入的蛇頭就是食物的位置<br/>    # 蛇長加 1，產生新的食物，重置 board (因為原來那些路徑長度已經用不上了)<br/>    # snake[HEAD] is the coordinate of the snake head<br/>    # food is the coordinate of the food<br/>    if snake[HEAD] == food:<br/>        # mark on the board where the snake head is<br/>        board[snake[HEAD]] = SNAKE # 新的蛇頭 <br/>        snake_size += 1<br/>        score += 1<br/>        if snake_size &lt; FIELD_SIZE: new_food()<br/>    else: # 如果新加入的蛇頭不是食物的位置<br/>        board[snake[HEAD]] = SNAKE # 新的蛇頭<br/>        board[snake[snake_size]] = UNDEFINED # 蛇尾變為空格<br/>        #win.addch(snake[snake_size]//WIDTH, snake[snake_size]%WIDTH, ' ')<br/>        # 去除 snake tail<br/>        ctx.fillStyle = "white"<br/>        ctx.fillRect((snake[snake_size]//WIDTH)*gs, (snake[snake_size]%WIDTH)*gs, gs-2, gs-2)<br/>    <br/>        <br/># 虛擬地運行一次，然後在調用處檢查這次運行可否可行<br/># 可行才真實運行。<br/># 虛擬運行吃到食物後，得到虛擬下蛇在 board 的位置<br/>def virtual_shortest_move():<br/>    global snake, board, snake_size, tmpsnake, tmpboard, tmpsnake_size, food<br/>    tmpsnake_size = snake_size<br/>    tmpsnake = snake[:] # 如果直接tmpsnake=snake，則兩者指向同一處內存<br/>    tmpboard = board[:] # board中已經是各位置到達食物的路徑長度了，不用再計算<br/>    board_reset(tmpsnake, tmpsnake_size, tmpboard)<br/>    <br/>    food_eated = False<br/>    while not food_eated:<br/>        board_refresh(food, tmpsnake, tmpboard)    <br/>        move = choose_shortest_safe_move(tmpsnake, tmpboard)<br/>        shift_array(tmpsnake, tmpsnake_size)<br/>        tmpsnake[HEAD] += move # 在蛇頭前加入一個新的位置<br/>        # 如果新加入的蛇頭的位置正好是食物的位置<br/>        # 則長度加1，重置board，食物那個位置變為蛇的一部分(SNAKE)<br/>        if tmpsnake[HEAD] == food:<br/>            tmpsnake_size += 1<br/>            board_reset(tmpsnake, tmpsnake_size, tmpboard) # 虛擬運行後，蛇在board的位置(label101010)<br/>            tmpboard[food] = SNAKE<br/>            food_eated = True<br/>        else: # 如果蛇頭不是食物的位置，則新加入的位置為蛇頭，最後一個變為空格<br/>            tmpboard[tmpsnake[HEAD]] = SNAKE<br/>            tmpboard[tmpsnake[tmpsnake_size]] = UNDEFINED<br/><br/># 如果蛇與食物間有路徑，則調用本函數<br/>def find_safe_way():<br/>    global snake, board<br/>    safe_move = ERR<br/>    # 虛擬地運行一次, 因為已經確保蛇與食物間有路徑，所以執行有效<br/>    # 運行後得到虛擬下蛇在board中的位置, 即 tmpboard，見 label101010<br/>    virtual_shortest_move() # 該函數唯一調用處<br/>    if is_tail_inside(): # 如果虛擬運行後，蛇頭蛇尾間有通路，則選最短路運行(1步)<br/>        return choose_shortest_safe_move(snake, board)<br/>    safe_move = follow_tail() # 否則虛擬地follow_tail 1步，如果可以做到，返回 true<br/>    return safe_move<br/>    <br/>#curses.initscr()<br/>#win = curses.newwin(HEIGHT, WIDTH, 0, 0)<br/>#win.keypad(1)<br/>#curses.noecho()<br/>#curses.curs_set(0)<br/>#win.border(0)<br/>#win.nodelay(1)<br/>#win.addch(food//WIDTH, food%WIDTH, '@')<br/># 畫出 food<br/>ctx.fillStyle = "red"<br/>ctx.fillRect((food//WIDTH)*gs, (food%WIDTH)*gs, gs-2, gs-2)<br/><br/>def game2():<br/>    global score<br/>    grid()<br/>    ctx.fillStyle = "lime"<br/>    ctx.fillRect((snake[HEAD]//WIDTH)*gs, (snake[HEAD]%WIDTH)*gs, gs-2, gs-2)<br/>    update_score(score)<br/>    board_reset(snake, snake_size, board)<br/>    if board_refresh(food, snake, board):<br/>        best_move  = find_safe_way() # find_safe_way 的唯一調用處<br/>    else:<br/>        best_move = follow_tail()<br/>            <br/>    if best_move == ERR:<br/>        best_move = any_possible_move()<br/>    # 上面一次思考，只得出一個方向，運行一步<br/>    if best_move != ERR: <br/>        make_move(best_move)   <br/><br/># 加入暫停機制<br/><br/># 將 anim 設為 None<br/>anim = None<br/> <br/>def launchAnimation(ev):<br/>    global anim<br/>    # 初始啟動, anim 為 None<br/>    if anim is None:<br/>        # 每 0.08 秒執行一次 draw 函式繪圖<br/>        #anim = timer.set_interval(draw, 80)<br/>        anim = browser.timer.set_interval(game2, 100/15)<br/>        # 初始啟動後, 按鈕文字轉為"暫停"<br/>        doc['power'].text = '暫停'<br/>    elif anim == 'hold':<br/>        # 當 anim 為 'hold' 表示曾經暫停後的啟動, 因此持續以 set_interval() 持續旋轉, 且將 power 文字轉為"暫停"<br/>        #anim = timer.set_interval(draw, 80)<br/>        anim = browser.timer.set_interval(game2, 100/15)<br/>        doc['power'].text = '暫停'<br/>    else:<br/>        # 初始啟動後, 使用者再按 power, 此時 anim 非 None 也不是 'hold', 因此會執行 clear_interval() 暫停<br/>        # 且將 anim 變數設為 'hold', 且 power 文字轉為"繼續"<br/>        #timer.clear_interval(anim)<br/>        browser.timer.clear_interval(anim)<br/>        anim = 'hold'<br/>        doc['power'].text = '繼續'<br/> <br/>def reverse(ev):<br/>    global anim, direction<br/>    # 當 anim 為 hold 時, 按鈕無效<br/>    if anim != "hold":<br/>        if direction == True:<br/>            direction = False<br/>        else:<br/>            direction = True<br/> <br/>doc["power"].bind("click", launchAnimation)<br/><br/>#browser.timer.set_interval(game2, 100/15)</p>
-<p></p><h1>Final Project</h1>
+<p><a href="https://mde.tw/cp2021/content/run.html?src=https://gist.githubusercontent.com/mdecourse/d306a1f57e53bfd6466eaae20bcb9439/raw/2160a12b9fec9707a120a383ed5d38b9b78a02cf/snake.py">自動執行貪食蛇</a>程式的改進.</p><h1>BSnake</h1>
+<p></p>
+<p></p>
+<h2>Snake run</h2>
+<!-- 導入 brython 程式庫 -->
+<script src="/static/brython.js"></script>
+<script src="/static/brython_stdlib.js"></script>
+<!-- 啟動 Brython -->
+<script>
+window.onload=function(){
+brython({debug:1, pythonpath:['/static/','./../downloads/py/']});
+}
+</script>
+<p><!-- 導入 FileSaver 與 filereader --></p>
+<p>
+<script src="/static/ace/FileSaver.min.js" type="text/javascript"></script>
+<script src="/static/ace/filereader.js" type="text/javascript"></script>
+</p>
+<p><!-- 導入 ace --></p>
+<p>
+<script src="/static/ace/ace.js" type="text/javascript"></script>
+<script src="/static/ace/ext-language_tools.js" type="text/javascript"></script>
+<script src="/static/ace/mode-python3.js" type="text/javascript"></script>
+<script src="/static/ace/snippets/python.js" type="text/javascript"></script>
+</p>
+<p><!-- 請注意, 這裡使用 Javascript 將 localStorage["py_src"] 中存在近端瀏覽器的程式碼, 由使用者決定存檔名稱--></p>
+<p>
+<script type="text/javascript">
+function doSave(storage_id, filename){
+    var blob = new Blob([localStorage[storage_id]], {type: "text/plain;charset=utf-8"});
+    filename = document.getElementById(filename).value
+    saveAs(blob, filename+".py");
+}
+</script>
+</p>
+<p><!-- 印出版次與關鍵字程式 --></p>
+<p>
+<script type="text/python3">
+from browser import document as doc
+import ace
+# 清除畫布
+def clear_bd(ev):
+    bd = doc["brython_div"]
+    bd.clear()
+# Brython 3.3.4 內建的 container 名稱為  'container' 且 turtle 輸出為 svg 必須使用 div 訂定 id
+Ace = ace.Editor(editor_id="kw_editor", console_id="kw_console", container_id="kw__container", storage_id="kw_py_src" )
+# 從 gist 取出程式碼後, 放入 editor 作為 default 程式
+def run():
+    # 利用 get 取下 src 變數值
+    try:
+        url = doc.query["src"]
+    except:
+        url = "https://gist.githubusercontent.com/BX41023132/7295aee53cdc6275ecc9f103e4a759ed/raw/b34d192e57c0443b4c4554587a3c9b48a8a6f22a/s2"
+    prog = open(url).read()
+
+    # 將程式載入編輯區
+    Ace.editor.setValue(prog)
+    Ace.editor.scrollToRow(0)
+    Ace.editor.gotoLine(0)
+    # 直接執行程式
+    #ns = {'__name__':'__main__'}
+    #exec(prog, ns)
+    # 按下 run 按鈕
+    Ace.run()
+
+# 執行程式, 顯示輸出結果與清除輸出結果及對應按鈕綁定
+doc['kw_run'].bind('click', Ace.run)
+doc['kw_show_console'].bind('click', Ace.show_console)
+doc['kw_clear_console'].bind('click', Ace.clear_console)
+doc['clear_bd'].bind('click', clear_bd)
+# 呼叫函式執行
+run()
+</script>
+</p>
+<p><!-- 用來顯示程式碼的 editor 區域 --></p>
+<div id="kw_editor" style="width: 600px; height: 300px;"></div>
+<p><!-- 以下的表單與按鈕與前面的 Javascript doSave 函式以及 FileSaver.min.js 互相配合 --></p>
+<!-- 存擋表單開始 --><form><label>Filename: <input id="kw_filename" placeholder="input file name" type="text"/>.py</label> <input onclick="doSave('kw_py_src', 'kw_filename');" type="submit" value="Save"/></form><!-- 存擋表單結束 -->
+<p></p>
+<!-- 執行與清除按鈕開始 -->
+<p><button id="kw_run">Run</button> <button id="kw_show_console">Output</button> <button id="kw_clear_console">清除輸出區</button><button id="clear_bd">清除繪圖區</button><button onclick="window.location.reload()">Reload</button></p>
+<!-- 執行與清除按鈕結束 -->
+<p></p>
+<!-- 程式執行 ouput 區 -->
+<div style="width: 100%; height: 100%;"><textarea autocomplete="off" id="kw_console"></textarea></div>
+<!-- Brython 程式執行的結果, 都以 brython_div 作為切入位置 -->
+<div id="brython_div"></div>
+<!-- 導入 gearUtils-0.9.js Cango 齒輪繪圖程式庫 -->
+<script src="https://mde.tw/cp2021/cmsimde/static/Cango-24v03-min.js"></script>
+<script src="https://mde.tw/cp2021/cmsimde/static/gearUtils-09.js"></script>
+<script src="https://mde.tw/cp2021/cmsimde/static/SVGpathUtils-6v03-min.js"></script>
+<script src="https://mde.tw/cp2021/cmsimde/static/sylvester.js"></script>
+<script src="https://mde.tw/cp2021/cmsimde/static/PrairieDraw.js"></script><h1>Final Project</h1>
 <p>Final Project 佔學期成績 30%</p>
 <p><span style="background-color: #ffff99;">Final Project 必須在 2022.01.05 22:00 之前完成</span>.</p>
 <p><a href="https://github.com/mdecourse/cp2021/discussions/11">Final Project 具體項目成果回報區</a>將於 2021.11.09 開啟, 於 <span style="background-color: #ff99cc;">2022.01.05 22:00 關閉</span></p>
