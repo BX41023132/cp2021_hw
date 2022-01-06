@@ -179,10 +179,13 @@ function doSave(storage_id, filename){
 <script src="https://mde.tw/cp2021/cmsimde/static/sylvester.js"></script>
 <script src="https://mde.tw/cp2021/cmsimde/static/PrairieDraw.js"></script>
 </p>
-<p><button id="add1to100">add 1 to 100</button><button id="p261">p261</button><button id="rocflag">ROC flag</button><button id="w13">w13</button><button id="snake">snake</button><button id="hsnake">hsnake</button></p>
+<p><button id="HW1">HW1</button><button id="add1to100">add 1 to 100</button><button id="p261">p261</button><button id="rocflag">ROC flag</button><button id="w13">w13</button></p>
+<p><button id="snake">snake</button><button id="hsnake">hsnake</button></p>
+<p><button id="Final1">Final1</button><button id="Final2">Final2</button></p>
 <p><!-- ######################  editor1 開始 ###################### --></p>
 <p><!-- 用來顯示程式碼的 editor 區域 --></p>
 <div id="kw_editor1" style="width: 600px; height: 300px;"></div>
+<div style="width: 600px; height: 300px;"></div>
 <p><!-- 以下的表單與按鈕與前面的 Javascript doSave 函式以及 FileSaver.min.js 互相配合 --></p>
 <p><!-- 存擋表單開始 --></p>
 <form><label>Filename: <input id="kw_filename" placeholder="input file name" type="text"/>.py</label> <input onclick="doSave('kw_py_src1', 'kw_filename1');" type="submit" value="Save"/></form>
@@ -264,6 +267,11 @@ class button2:
 add1to100_url = "https://gist.githubusercontent.com/mdecourse/0229a8a017091476a79700b8a190f185/raw/c48e37714f055c3a0027cbfef59e442a6ef659b9/from_1_add_to_100_1.py"
 add1to100 = button2(add1to100_url)
 doc["add1to100"].bind('click', add1to100.do)
+################################# HW1 start 
+HW1_url = "https://gist.githubusercontent.com/BX41023132/48c274056a7a54ede1afb6ed8b2a5b78/raw/5887f95572d13f67761e7adfc5454a6780c1c1b6/%25E7%25B4%2585%25E8%2589%25B2%25E6%2596%25B9%25E5%25A1%258A"
+HW1 = button2(HW1_url)
+doc["HW1"].bind('click', HW1.do)
+################################## p261 end
 ################################# p261 start 
 p261_url = "https://gist.githubusercontent.com/mdecourse/2f56974a40da7a218dbaef376a5b4ca4/raw/980606effcd29635307d6474718cd4a7ef016747/p261.py"
 p261 = button2(p261_url)
@@ -280,15 +288,25 @@ w13 = button2(w13_url)
 doc["w13"].bind('click', w13.do)
 ################################## w13 end
 ################################# snake start 
-snake_url = "https://gist.githubusercontent.com/BX41023132/51b076c1adb4a8cdb91ddbc1c7ea6c69/raw/a00b34ae82b95eb188adc37bbd4c561cedc0c5f7/snake"
+snake_url = "https://gist.githubusercontent.com/BX41023132/86ffeb6166b7ec82cf1c0823b9c639f1/raw/5d9c40960a9bf9f8787c9496d603655214d92746/pink%2520snake"
 snake= button2(snake_url)
 doc["snake"].bind('click', snake.do)
 ################################## snake end
 ################################# hsnake start 
-hsnake_url = "https://gist.githubusercontent.com/BX41023132/cd53cb36478af9169356d1728c8e647c/raw/01bb2db465c7c3986ba0a371fc611f3cfb9f081e/h%2520s2"
+hsnake_url = "https://gist.githubusercontent.com/BX41023132/78314aaa0988150ca7289020401ac05c/raw/3dac488fe2fde2bbbb87d0eed9ad3839f4931e12/%25E6%2589%258B%25E5%258B%2595%25E8%259B%2587WASD%2520%25E4%25BF%25AE%25E6%25AD%25A3"
 hsnake= button2(hsnake_url)
 doc["hsnake"].bind('click', hsnake.do)
 ################################## hsnake end
+################################# Final1 start 
+Final1_url = "https://gist.githubusercontent.com/BX41023132/0775eec0bca2de3590d211837d2932ea/raw/b2ea86bb0c12b8bbda1e774734046c9cd6a427fb/final1"
+Final1= button2(Final1_url)
+doc["Final1"].bind('click', Final1.do)
+################################## Final1 end
+################################# Final2start 
+Final2_url = ""
+Final2= button2(Final2_url)
+doc["Final2"].bind('click', Final2.do)
+################################## Final2 end
 </script>
 </p><br />Snake run << <a href='Snake run.html'>Previous</a> <a href='Final Project.html'>Next</a> >> Final Project</div>
         
