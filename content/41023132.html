@@ -180,8 +180,8 @@ function doSave(storage_id, filename){
 <script src="https://mde.tw/cp2021/cmsimde/static/PrairieDraw.js"></script>
 </p>
 <p><button id="HW1">HW1</button><button id="HW2">HW2</button></p>
-<p><button id="1 to 100"> 1 to 100</button><button id="p261">p261</button><button id="rocflag">ROC flag</button><button id="w13方塊座標">w13方塊座標</button></p>
-<p><button id="snake1">snake1</button><button id="manual snake">manual snake</button></p>
+<p><button id="1 to 100"> 1 to 100</button><button id="p261">p261</button><button id="rocflag">ROC flag</button><button id="w13coordinate">w13coordinate</button></p>
+<p><button id="automatic snake">automatic snake</button><button id="manual snake">manual snake</button></p>
 <p><button id="Final1">Final1</button><button id="Final2">Final2</button></p>
 <p><!-- ######################  editor1 開始 ###################### --></p>
 <p><!-- 用來顯示程式碼的 editor 區域 --></p>
@@ -288,16 +288,16 @@ rocflag_url = "https://gist.githubusercontent.com/mdecourse/2f56974a40da7a218dba
 rocflag = button2(rocflag_url)
 doc["rocflag"].bind("click", rocflag.do)
 ################################## rocflag end
-################################# w13方塊座標 start 
-w13方塊座標_url = "https://gist.githubusercontent.com/BX41023132/bc5e39fa59d693f20abf3dbda07977ab/raw/293277c433a8c9d7c8ec25b941acc72476ee33dc/%25E5%25BA%25A7%25E6%25A8%2599"
-w13方塊座標 = button2(w13方塊座標_url)
-doc["w13方塊座標"].bind('click', w13方塊座標.do)
-################################## w13方塊座標 end
-################################# snake1 start 
-snake1_url = "https://gist.githubusercontent.com/BX41023132/86ffeb6166b7ec82cf1c0823b9c639f1/raw/5d9c40960a9bf9f8787c9496d603655214d92746/pink%2520snake"
-snake1= button2(snake1_url)
-doc["snake1"].bind('click', snake1.do)
-################################## snake1 end
+################################# w13coordinate start 
+w13coordinate_url = "https://gist.githubusercontent.com/BX41023132/bc5e39fa59d693f20abf3dbda07977ab/raw/293277c433a8c9d7c8ec25b941acc72476ee33dc/%25E5%25BA%25A7%25E6%25A8%2599"
+w13coordinate = button2(w13coordinate_url)
+doc["w13coordinate"].bind('click', w13coordinate.do)
+################################## w13coordinate end
+################################# automatic snake start 
+automatic snake_url = "https://gist.githubusercontent.com/BX41023132/86ffeb6166b7ec82cf1c0823b9c639f1/raw/5d9c40960a9bf9f8787c9496d603655214d92746/pink%2520snake"
+automatic snake= button2(automatic snake_url)
+doc["automatic snake"].bind('click', automatic snake.do)
+################################## automatic snake end
 ################################# manual snake start 
 manual snake_url = "https://gist.githubusercontent.com/BX41023132/dcfb3a5b053df9c008ae917bbffdd74b/raw/86044b90e79200c7b6672a33737395a7b927e5ba/%25E6%2589%258B%25E5%258B%2595%25E8%259B%2587%25E4%25BF%25AE%25E6%25AD%25A32"
 manual snake= button2(manual snake_url)
