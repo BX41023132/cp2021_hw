@@ -215,7 +215,7 @@ run()
 <h4>Examples</h4>
 <p><a href="/downloads/w11_notes.txt">w11_notes.txt</a></p>
 <p><a href="/downloads/w11_1b_p261.txt">w11_1b_p261.txt</a></p>
-<p><a href="/downloads/w11_class.txt">w11_class.txt</a>W11
+<p><a href="/downloads/w11_class.txt">w11_class.txt</a>W11</p>
 <h4>Examples</h4>
 <p><a href="/downloads/w11_notes.txt">w11_notes.txt</a></p>
 <p><a href="/downloads/w11_1b_p261.txt">w11_1b_p261.txt</a></p>
@@ -232,7 +232,7 @@ run()
 <p>將 Gist 中的程式導入本頁面的程式段: <a href="/downloads/brython_button_prog.txt">brython_button_prog.txt</a>, 只要配合 button id 對應即可導入編輯區.</p>
 <p><button id="add1to100">1 add to 100</button><button id="p261">p261</button></p>
 <p>將 iterable 與 iterator <a href="https://home.gamer.com.tw/creationDetail.php?sn=4337438">相關說明</a>, 利用 Brython 與 Ace Editor 整理在這個頁面.</p>
-<!-- 導入 brython 程式庫 -->
+<p><!-- 導入 brython 程式庫 -->
 <script src="/static/brython.js"></script>
 <script src="/static/brython_stdlib.js"></script>
 <!-- 啟動 Brython -->
@@ -241,6 +241,7 @@ window.onload=function(){
 brython({debug:1, pythonpath:['/static/','./../downloads/py/']});
 }
 </script>
+</p>
 <p><!-- 導入 FileSaver 與 filereader --></p>
 <p>
 <script src="/static/ace/FileSaver.min.js" type="text/javascript"></script>
@@ -263,7 +264,7 @@ function doSave(storage_id, filename){
 }
 </script>
 </p>
-<!-- 內建程式 1 ####################################### 內建程式 1 開始-->
+<p><!-- 內建程式 1 ####################################### 內建程式 1 開始--></p>
 <p>
 <script type="text/python3">
 from browser import document as doc
@@ -301,9 +302,9 @@ doc['clear_bd1'].bind('click', clear_bd1)
 run1()
 </script>
 </p>
-<!-- 內建程式 1 ####################################### 內建程式 1 結束-->
+<p><!-- 內建程式 1 ####################################### 內建程式 1 結束--></p>
 <p></p>
-<!-- button 程式 1 ####################################### button 程式 1 開始-->
+<p><!-- button 程式 1 ####################################### button 程式 1 開始--></p>
 <p><!-- add 1 to 100 開始 -->
 <script type="text/python3">
 from browser import document as doc
@@ -339,7 +340,7 @@ doc["p261"].bind('click', p261.do)
 </script>
 </p>
 <p><!-- add 1 to 100 結束--></p>
-<!-- editor1 開始 -->
+<p><!-- editor1 開始 --></p>
 <p><!-- 用來顯示程式碼的 editor 區域 --></p>
 <div id="kw_editor1" style="width: 600px; height: 300px;"></div>
 <p><!-- 以下的表單與按鈕與前面的 Javascript doSave 函式以及 FileSaver.min.js 互相配合 --></p>
@@ -813,32 +814,32 @@ class button2:
 add1to100_url = "https://gist.githubusercontent.com/mdecourse/0229a8a017091476a79700b8a190f185/raw/c48e37714f055c3a0027cbfef59e442a6ef659b9/from_1_add_to_100_1.py"
 add1to100 = button2(add1to100_url)
 doc["add1to100"].bind('click', add1to100.do)
-################################# HW1 start 
+################################ HW1 start 
 HW1_url = "https://gist.githubusercontent.com/BX41023132/48c274056a7a54ede1afb6ed8b2a5b78/raw/5887f95572d13f67761e7adfc5454a6780c1c1b6/%25E7%25B4%2585%25E8%2589%25B2%25E6%2596%25B9%25E5%25A1%258A"
 HW1 = button2(HW1_url)
 doc["HW1"].bind('click', HW1.do)
-################################## HW1 end
-################################# HW2 start 
+################################# HW1 end
+################################ HW2 start 
 HW2_url = "https://gist.githubusercontent.com/BX41023132/a6825423e3eb05276dace78edc592987/raw/56393d4e229312845e6f49bfd60815f5ddcf8e78/%25E6%2596%25B9%25E5%25A1%258A%25E9%259A%25A8%25E6%25A9%259F"
 HW2= button2(HW2_url)
 doc["HW2"].bind('click', HW2.do)
-################################## HW2 end
+################################# HW2 end
 ################################# p261 start 
 p261_url = "https://gist.githubusercontent.com/mdecourse/2f56974a40da7a218dbaef376a5b4ca4/raw/980606effcd29635307d6474718cd4a7ef016747/p261.py"
 p261 = button2(p261_url)
 doc["p261"].bind('click', p261.do)
 ################################## p261 end
-################################## rocflag start
+################################ rocflag start
 rocflag_url = "https://gist.githubusercontent.com/mdecourse/2f56974a40da7a218dbaef376a5b4ca4/raw/0e2ca81d5c2539c4b6c86071c8cf9de0b1251b9c/roc_flag.py"
 rocflag = button2(rocflag_url)
 doc["rocflag"].bind("click", rocflag.do)
-################################## rocflag end
-################################# w13coordinate start 
+################################# rocflag end
+################################ w13coordinate start 
 w13coordinate_url = "https://gist.githubusercontent.com/BX41023132/bc5e39fa59d693f20abf3dbda07977ab/raw/293277c433a8c9d7c8ec25b941acc72476ee33dc/%25E5%25BA%25A7%25E6%25A8%2599"
 w13coordinate = button2(w13coordinate_url)
 doc["w13coordinate"].bind('click', w13coordinate.do)
-################################## w13coordinate end
-################################# automatic_snake start 
+################################# w13coordinate end
+################################ automatic_snake start 
 automatic_snake_url = "https://gist.githubusercontent.com/BX41023132/86ffeb6166b7ec82cf1c0823b9c639f1/raw/5d9c40960a9bf9f8787c9496d603655214d92746/pink%2520snake"
 automatic_snake= button2(automatic_snake_url)
 doc["automatic_snake"].bind('click', automatic_snake.do)
@@ -884,4 +885,4 @@ doc["Final3"].bind('click',Final3.do)
 <p style="padding-left: 30px;"><a href="https://github.com/topics/browser-game">https://github.com/topics/browser-game</a></p>
 <p style="padding-left: 30px;"><a href="https://github.com/leereilly/games">https://github.com/leereilly/games</a></p>
 <p style="padding-left: 30px;"><a href="https://bmsleight.github.io/brython-blocks/">https://bmsleight.github.io/brython-blocks/</a></p>
-<p style="padding-left: 60px;"><a href="https://github.com/mdecourse/brython-blocks">https://github.com/mdecourse/brython-blocks</a></p></p>
+<p style="padding-left: 60px;"><a href="https://github.com/mdecourse/brython-blocks">https://github.com/mdecourse/brython-blocks</a></p>

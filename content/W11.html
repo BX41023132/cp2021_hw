@@ -128,7 +128,7 @@ img.add_border {
                             <li><a href="./../blog/index.html">blog</a></li>
                         </ul>
                       </li>
-                     <li class='has-children'><a href='About.html'>About</a><ul class='dropdown'><li><a href='run.html'>run</a><li><a href='runsrc.html'>runsrc</a><li><a href='SSH.html'>SSH</a><li><a href='Network.html'>Network</a></li></ul><li class='has-children'><a href='Exam.html'>Exam</a><ul class='dropdown'><li><a href='w13.html'>w13</a></li></ul><li><a href='HW1.html'>HW1</a><li class='has-children'><a href='HW2.html'>HW2</a><ul class='dropdown'><li><a href='W11.html'>W11</a><li><a href='W12.html'>W12</a></li></ul><li><a href='HW3.html'>HW3</a><li class='has-children'><a href='BSnake.html'>BSnake</a><ul class='dropdown'><li><a href='Snake run.html'>Snake run</a></li></ul><li><a href='41023132.html'>41023132</a><li><a href='Final Project.html'>Final Project</a></li>
+                     <li class='has-children'><a href='About.html'>About</a><ul class='dropdown'><li><a href='run.html'>run</a><li><a href='runsrc.html'>runsrc</a><li><a href='SSH.html'>SSH</a><li><a href='Network.html'>Network</a></li></ul><li class='has-children'><a href='Exam.html'>Exam</a><ul class='dropdown'><li><a href='w13.html'>w13</a></li></ul><li><a href='HW1.html'>HW1</a><li class='has-children'><a href='HW2.html'>HW2</a><ul class='dropdown'><li><a href='W11.html'>W11</a><li><a href='W12.html'>W12</a></li></ul><li><a href='HW3.html'>HW3</a><li class='has-children'><a href='BSnake.html'>BSnake</a><ul class='dropdown'><li><a href='Snake run.html'>Snake run</a></li></ul><li><a href='Final Project.html'>Final Project</a></li>
                       </ul>
                 </nav>
               </div>
@@ -143,7 +143,7 @@ img.add_border {
 <h4>Examples</h4>
 <p><a href="./../downloads/w11_notes.txt">w11_notes.txt</a></p>
 <p><a href="./../downloads/w11_1b_p261.txt">w11_1b_p261.txt</a></p>
-<p><a href="./../downloads/w11_class.txt">w11_class.txt</a>W11
+<p><a href="./../downloads/w11_class.txt">w11_class.txt</a>W11</p>
 <h4>Examples</h4>
 <p><a href="./../downloads/w11_notes.txt">w11_notes.txt</a></p>
 <p><a href="./../downloads/w11_1b_p261.txt">w11_1b_p261.txt</a></p>
@@ -160,7 +160,7 @@ img.add_border {
 <p>將 Gist 中的程式導入本頁面的程式段: <a href="./../downloads/brython_button_prog.txt">brython_button_prog.txt</a>, 只要配合 button id 對應即可導入編輯區.</p>
 <p><button id="add1to100">1 add to 100</button><button id="p261">p261</button></p>
 <p>將 iterable 與 iterator <a href="https://home.gamer.com.tw/creationDetail.php?sn=4337438">相關說明</a>, 利用 Brython 與 Ace Editor 整理在這個頁面.</p>
-<!-- 導入 brython 程式庫 -->
+<p><!-- 導入 brython 程式庫 -->
 <script src="./../cmsimde/static/brython.js"></script>
 <script src="./../cmsimde/static/brython_stdlib.js"></script>
 <!-- 啟動 Brython -->
@@ -169,6 +169,7 @@ window.onload=function(){
 brython({debug:1, pythonpath:['./../cmsimde/static/','./../downloads/py/']});
 }
 </script>
+</p>
 <p><!-- 導入 FileSaver 與 filereader --></p>
 <p>
 <script src="./../cmsimde/static/ace/FileSaver.min.js" type="text/javascript"></script>
@@ -191,7 +192,7 @@ function doSave(storage_id, filename){
 }
 </script>
 </p>
-<!-- 內建程式 1 ####################################### 內建程式 1 開始-->
+<p><!-- 內建程式 1 ####################################### 內建程式 1 開始--></p>
 <p>
 <script type="text/python3">
 from browser import document as doc
@@ -229,9 +230,9 @@ doc['clear_bd1'].bind('click', clear_bd1)
 run1()
 </script>
 </p>
-<!-- 內建程式 1 ####################################### 內建程式 1 結束-->
+<p><!-- 內建程式 1 ####################################### 內建程式 1 結束--></p>
 <p></p>
-<!-- button 程式 1 ####################################### button 程式 1 開始-->
+<p><!-- button 程式 1 ####################################### button 程式 1 開始--></p>
 <p><!-- add 1 to 100 開始 -->
 <script type="text/python3">
 from browser import document as doc
@@ -267,7 +268,7 @@ doc["p261"].bind('click', p261.do)
 </script>
 </p>
 <p><!-- add 1 to 100 結束--></p>
-<!-- editor1 開始 -->
+<p><!-- editor1 開始 --></p>
 <p><!-- 用來顯示程式碼的 editor 區域 --></p>
 <div id="kw_editor1" style="width: 600px; height: 300px;"></div>
 <p><!-- 以下的表單與按鈕與前面的 Javascript doSave 函式以及 FileSaver.min.js 互相配合 --></p>
